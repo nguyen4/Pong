@@ -8,7 +8,7 @@
 #ifndef globalVar_h
 #define globalVar_h
 
-const float SCREEN_HEIGHT = 1024;
-const float SCREEN_WIDTH = 1024;
+const float SCREEN_HEIGHT = 1536;
+const float SCREEN_WIDTH = 2048;
 
 #endif /* globalVar_h */
