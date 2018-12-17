@@ -14,6 +14,7 @@ Paddle::Paddle(bool left){
     height = 250;
     width = 30;
     dist = 4;
+    left_Paddle = left;
     paddle.setSize({width, height});
     paddle.setFillColor(sf::Color::White);
     
@@ -30,12 +31,13 @@ Paddle::Paddle(bool left){
 }
 
 void Paddle::drawto(sf::RenderWindow &window){
+    Paddle::moves();
     window.draw(paddle);
 }
 
-void Paddle::moves(bool left){
+void Paddle::moves(){
     
-    if (left) {
+    if (left_Paddle) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && paddle.getPosition().y >= paddle.getOrigin().y)
         {
             paddle.move(0.0f, -dist);

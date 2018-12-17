@@ -14,7 +14,7 @@
 class Paddle {
 public:
     Paddle(bool left);
-    void moves(bool left);
+    void moves();
     void drawto(sf::RenderWindow &window);
     float upperBorder();
     float lowerBorder();
@@ -30,6 +30,7 @@ private:
     float               height;
     float               width;
     float               dist;
+    bool                left_Paddle;
     
 };
 
