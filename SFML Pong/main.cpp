@@ -11,9 +11,10 @@ int main() {
     Paddle Left(true);
     Paddle Right(false);
     Ball ball;
+    sf::Clock clock;
+    window.setFramerateLimit(60);
     
     //set up game UI
-    ball.drawto(window);
     
     while (window.isOpen())
     {
@@ -39,8 +40,7 @@ int main() {
         Left.drawto(window);
         Right.drawto(window);
         
-        ball.drawto(window);
-        
+        //printf("Time Elapsed = %f", timeElapsed);
         if (ball.touchedPaddle(&Left) == 1){
             ball.changeDirection(1, &Left);
         }
@@ -50,7 +50,9 @@ int main() {
         else if (ball.touchedWall()){
             ball.changeDirection(3);
         }
+        ball.drawto(window);
         
         window.display();
+        clock.restart();
     }
 }

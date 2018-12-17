@@ -9,11 +9,12 @@
 #include "Ball.hpp"
 
 Ball::Ball(){
-    length = 35;
-    width = 35;
-    run = 7;
+    length = 30;
+    width = 30;
+    run = 25;
     rise = 0;
-    angle = .75;
+    angle = .80;
+    gameover = false;
     ball.setSize({width, length});
     ball.setOrigin(width/2.0f, length/2.0f);
     ball.setPosition(SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f);
@@ -23,78 +24,92 @@ Ball::Ball(){
 
 void Ball::drawto(sf::RenderWindow &window){
     if (gameover){
+        gameover = false;
         Ball::reset();
     }
     
+    if (ball.getPosition().x < (-1) * (width) || ball.getPosition().x > SCREEN_WIDTH + width){
+        gameover = true;
+    }
     ball.move(run, rise);
     window.draw(ball);
 }
 
-void Ball::changeDirection(int event, Paddle* paddle){ //might change the logic of change direction;
+void Ball::changeDirection(int event, Paddle* paddle){
+    
+    // handles left paddle collision
     if (event == 1){
         float y = ball.getPosition().y - paddle->getPosy();
         float sub_angle = ( angle/ (paddle->getHeight()/2) ) * y;
         rise = sub_angle * abs(run);
         run = fabs(run);
     }
+    // handles right paddle collision
     if (event == 2){
         float y = ball.getPosition().y - paddle->getPosy();
         float sub_angle = ( angle/ (paddle->getHeight()/2) ) * y;
         rise = sub_angle * abs(run);
         run = (-1) * run;
     }
+    // handles wall collision , reverse the rise variable
     if (event == 3){
         rise = (-1)*rise;
     }
 }
 
-//returns left global bound x of ball
+// returns left global x bound on ball
 float Ball::leftSide(){
     return ball.getPosition().x - (width/2);
 }
 
-//returns right global bound x of ball
+// returns right global x bound on ball
 float Ball::rightSide(){
     return ball.getPosition().x + (width/2);
 }
 
-//returns top global bound y of ball
+// returns top global y bound on ball
 float Ball::topBound(){
     return ball.getPosition().y - (length/2);
 }
 
-//returns bottom global bound y of ball
+// returns bottom global y bound on ball
 float Ball::bottomBound(){
     return ball.getPosition().y + (length/2);
 }
 
+// checks the direction of the ball
 bool Ball::isLeft(){
+    
+    // if run (x coordinate) is negative, then the ball is going left, otherwise it is going right
     if (run < 0)
         return true;
     else
         return false;
 }
 
+// checks if the ball hits a paddle
 int Ball::touchedPaddle(Paddle* paddle){
-    //1 for hits left paddle
-    if (Ball::isLeft() && Ball::leftSide() <= paddle->rightSide() ){
+    
+    // 1 for hits left paddle
+    if (Ball::isLeft() && Ball::leftSide() <= paddle->rightSide() + abs(run) ){
         if  ( Ball::rightSide() >= paddle->leftSide() &&
-             ( Ball::topBound() <= paddle->lowerBorder() && Ball::bottomBound() >= paddle->upperBorder() )){
+            ( Ball::topBound() <= paddle->lowerBorder() && Ball::bottomBound() >= paddle->upperBorder() )){
             return 1;
             
         }
     }
-    //2 for hit right paddle
-    else if (!Ball::isLeft() && Ball::rightSide() >= paddle->leftSide()){
+    // 2 for hits right paddle
+    else if (!Ball::isLeft() && Ball::rightSide() >= paddle->leftSide() - abs(run) ){
         if  ( Ball::leftSide() <= paddle->rightSide() &&
-             ( Ball::topBound() <= paddle->lowerBorder() && Ball::bottomBound() >= paddle->upperBorder() )){
+            ( Ball::topBound() <= paddle->lowerBorder() && Ball::bottomBound() >= paddle->upperBorder() )){
             return 2;
         }
     }
-    //0 for no paddle
+    // 0 for doesnt hit paddle
     return 0;
 }
 
+// checks if ball hits the wall
 bool Ball::touchedWall(){
     if (topBound() <= 0 || bottomBound() >= SCREEN_HEIGHT)
         return true;
@@ -105,5 +120,8 @@ bool Ball::touchedWall(){
 void Ball::reset(){
     ball.setPosition(SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f);
     rise = 0;
-    run = 7;
+}
+
+bool Ball::isGameOver(){
+    return gameover;
 }

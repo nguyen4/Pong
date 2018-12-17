@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "globalVar.h"
 #include "Paddle.hpp"
+#include <SFML/Graphics.hpp>
 #include <math.h>
 
 class Ball{
@@ -27,14 +28,15 @@ public:
     int touchedPaddle(Paddle* paddle);
     bool touchedWall();
     void reset();
+    bool isGameOver();
     
 private:
     sf::RectangleShape ball;
     float       length;
     float       width;
-    float       run;
-    float       rise;
-    float       angle;  //in degrees
+    float       run;        // x coordinate
+    float       rise;       // y coordinate
+    float       angle;      // in degrees
     bool        gameover;
 };
 
