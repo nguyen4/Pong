@@ -9,26 +9,30 @@ class Ball{
 public:
     Ball();
     void drawto(sf::RenderWindow &window);
-    void shoots();
-    void changeDirection(int event);
+    void changeDirection(int event, Paddle* paddle);
     float leftSide();
     float rightSide();
     float topBound();
     float bottomBound();
     bool isLeft();
     int touchedPaddle(Paddle* paddle);
+    bool touchedWall();
     
 private:
     sf::RectangleShape ball;
     float       length;
     float       width;
-    float       velocity;
+    float       run;
+    float       rise;
+    float       angle;  //in degrees
 };
 
 Ball::Ball(){
     length = 35;
     width = 35;
-    velocity = 7;
+    run = 7;
+    rise = 0;
+    angle = .75;
     ball.setSize({width, length});
     ball.setOrigin(width/2.0f, length/2.0f);
     ball.setPosition(SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f);
@@ -37,19 +41,25 @@ Ball::Ball(){
 }
 
 void Ball::drawto(sf::RenderWindow &window){
+    ball.move(run, rise);
     window.draw(ball);
 }
 
-void Ball::shoots(){
-    ball.move(velocity, 0);
-}
-
-void Ball::changeDirection(int event){ //might change the logic of change direction;
+void Ball::changeDirection(int event = 3, Paddle* paddle = NULL){ //might change the logic of change direction;
     if (event == 1){
-        velocity = fabs(velocity);
+        float y = ball.getPosition().y - paddle->getPosy();
+        float sub_angle = ( angle/ (paddle->getHeight()/2) ) * y;
+        rise = sub_angle * abs(run);
+        run = fabs(run);
     }
     if (event == 2){
-        velocity = (-1) * velocity;
+        float y = ball.getPosition().y - paddle->getPosy();
+        float sub_angle = ( angle/ (paddle->getHeight()/2) ) * y;
+        rise = sub_angle * abs(run);
+        run = (-1) * run;
+    }
+    if (event == 3){
+        rise = (-1)*rise;
     }
 }
 
@@ -74,7 +84,7 @@ float Ball::bottomBound(){
 }
 
 bool Ball::isLeft(){
-    if (velocity < 0)
+    if (run < 0)
         return true;
     else
         return false;
@@ -86,6 +96,7 @@ int Ball::touchedPaddle(Paddle* paddle){
         if  ( Ball::rightSide() >= paddle->leftSide() &&
             ( Ball::topBound() <= paddle->lowerBorder() && Ball::bottomBound() >= paddle->upperBorder() )){
             return 1;
+            
         }
     }
     //2 for hit right paddle
@@ -97,6 +108,13 @@ int Ball::touchedPaddle(Paddle* paddle){
     }
     //0 for no paddle
     return 0;
+}
+
+bool Ball::touchedWall(){
+    if (topBound() <= 0 || bottomBound() >= SCREEN_HEIGHT)
+        return true;
+
+    return false;
 }
 
 int main() {
@@ -134,17 +152,17 @@ int main() {
         Left.moves(true);
         Right.moves(false);
         
-        ball.shoots();
         ball.drawto(window);
         
         if (ball.touchedPaddle(&Left) == 1){
-            ball.changeDirection(1);
+            ball.changeDirection(1, &Left);
         }
         else if (ball.touchedPaddle(&Right) == 2){
-            ball.changeDirection(2);
+            ball.changeDirection(2, &Right);
         }
-        
-        
+        else if (ball.touchedWall()){
+            ball.changeDirection();
+        }
         
         window.display();
     }

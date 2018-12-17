@@ -13,7 +13,7 @@ Paddle::Paddle(bool left){
     
     height = 250;
     width = 30;
-    dist = 3;
+    dist = 4;
     paddle.setSize({width, height});
     paddle.setFillColor(sf::Color::White);
     
@@ -81,4 +81,12 @@ float Paddle::getPosx(){
 
 float Paddle::getPosy(){
     return paddle.getPosition().y;
+}
+
+float Paddle::getHeight(){
+    return height;
+}
+
+float Paddle::getWidth(){
+    return width;
 }

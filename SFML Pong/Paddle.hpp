@@ -22,6 +22,8 @@ public:
     float rightSide();
     float getPosx();
     float getPosy();
+    float getHeight();
+    float getWidth();
     
 private:
     sf::RectangleShape  paddle;     //all private variables will be initiated in the constructor
