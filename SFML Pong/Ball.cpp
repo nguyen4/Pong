@@ -23,14 +23,11 @@ Ball::Ball(){
 }
 
 void Ball::drawto(sf::RenderWindow &window){
-    if (gameover){
-        gameover = false;
-        Ball::reset();
-    }
     
-    if (ball.getPosition().x < (-1) * (width) || ball.getPosition().x > SCREEN_WIDTH + width){
+    if (Ball::leftWon() || Ball::rightWon()){
         gameover = true;
     }
+    
     ball.move(run, rise);
     window.draw(ball);
 }
@@ -109,6 +106,22 @@ int Ball::touchedPaddle(Paddle* paddle){
     return 0;
 }
 
+//checks if the ball goes past right bound
+bool Ball::leftWon(){
+    if (ball.getPosition().x > SCREEN_WIDTH + width){
+        return true;
+    }
+    return false;
+}
+
+//checks if the ball goes past left bound
+bool Ball::rightWon(){
+    if (ball.getPosition().x < (-1) * (width)){
+        return true;
+    }
+    return false;
+}
+
 // checks if ball hits the wall
 bool Ball::touchedWall(){
     if (topBound() <= 0 || bottomBound() >= SCREEN_HEIGHT)
@@ -119,9 +132,17 @@ bool Ball::touchedWall(){
 
 void Ball::reset(){
     ball.setPosition(SCREEN_WIDTH/2.0f, SCREEN_HEIGHT/2.0f);
+    gameover = false;
     rise = 0;
 }
 
 bool Ball::isGameOver(){
     return gameover;
+}
+
+void Ball::setGameOver(bool isOver = true){
+    if (isOver)
+        gameover = true;
+    else
+        gameover = false;
 }

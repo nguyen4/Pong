@@ -24,11 +24,15 @@ public:
     float rightSide();
     float topBound();
     float bottomBound();
+    bool leftWon();
+    bool rightWon();
     bool isLeft();
     int touchedPaddle(Paddle* paddle);
     bool touchedWall();
     void reset();
     bool isGameOver();
+    void setGameOver(bool isOver);
+    
     
 private:
     sf::RectangleShape ball;

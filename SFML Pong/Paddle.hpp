@@ -14,16 +14,19 @@
 class Paddle {
 public:
     Paddle(bool left);
-    void moves();
-    void drawto(sf::RenderWindow &window);
-    float upperBorder();
-    float lowerBorder();
-    float leftSide();
-    float rightSide();
-    float getPosx();
-    float getPosy();
-    float getHeight();
-    float getWidth();
+    void    moves();
+    void    drawto(sf::RenderWindow &window);
+    bool    isLeft();
+    void    addOne();
+    int     getScore();
+    float   upperBorder();
+    float   lowerBorder();
+    float   leftSide();
+    float   rightSide();
+    float   getPosx();
+    float   getPosy();
+    float   getHeight();
+    float   getWidth();
     
 private:
     sf::RectangleShape  paddle;     //all private variables will be initiated in the constructor
@@ -31,6 +34,7 @@ private:
     float               width;
     float               dist;
     bool                left_Paddle;
+    int                 score;
     
 };
 

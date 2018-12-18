@@ -14,6 +14,7 @@
 		E28FE1C121C05089006A4B4F /* libsfml-window.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E28FE1BD21C05089006A4B4F /* libsfml-window.2.4.2.dylib */; };
 		E28FE1C221C05089006A4B4F /* libsfml-graphics.2.4.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E28FE1BE21C05089006A4B4F /* libsfml-graphics.2.4.2.dylib */; };
 		E2C880C021C743750021B3F2 /* Ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C880BE21C743750021B3F2 /* Ball.cpp */; };
+		E2C880C321C96CF30021B3F2 /* UIElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C880C121C96CF30021B3F2 /* UIElement.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,8 @@
 		E28FE1BE21C05089006A4B4F /* libsfml-graphics.2.4.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-graphics.2.4.2.dylib"; path = "../../../../usr/local/Cellar/sfml/2.4.2_1/lib/libsfml-graphics.2.4.2.dylib"; sourceTree = "<group>"; };
 		E2C880BE21C743750021B3F2 /* Ball.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Ball.cpp; sourceTree = "<group>"; };
 		E2C880BF21C743750021B3F2 /* Ball.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ball.hpp; sourceTree = "<group>"; };
+		E2C880C121C96CF30021B3F2 /* UIElement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UIElement.cpp; sourceTree = "<group>"; };
+		E2C880C221C96CF30021B3F2 /* UIElement.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = UIElement.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +79,8 @@
 		E28FE1B221C04F91006A4B4F /* SFML Pong */ = {
 			isa = PBXGroup;
 			children = (
+				E2C880C121C96CF30021B3F2 /* UIElement.cpp */,
+				E2C880C221C96CF30021B3F2 /* UIElement.hpp */,
 				E2C880BE21C743750021B3F2 /* Ball.cpp */,
 				E2C880BF21C743750021B3F2 /* Ball.hpp */,
 				E20A530121C41FCE0020E0EE /* Paddle.cpp */,
@@ -154,6 +159,7 @@
 			files = (
 				E2C880C021C743750021B3F2 /* Ball.cpp in Sources */,
 				E28FE1B421C04F91006A4B4F /* main.cpp in Sources */,
+				E2C880C321C96CF30021B3F2 /* UIElement.cpp in Sources */,
 				E20A530321C41FCE0020E0EE /* Paddle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

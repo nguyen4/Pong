@@ -16,6 +16,7 @@ Paddle::Paddle(bool left){
     left_Paddle = left;
     paddle.setSize({width, height});
     paddle.setFillColor(sf::Color::White);
+    score = 0;
     
     if (left)
     {
@@ -58,6 +59,18 @@ void Paddle::moves(){
             paddle.move(0.0f, dist);
         }
     }
+}
+
+bool Paddle::isLeft(){
+    return left_Paddle;
+}
+
+void Paddle::addOne(){
+    score += 1;
+}
+
+int Paddle::getScore(){
+    return score;
 }
 
 // gives the global y bound for the top of paddle
