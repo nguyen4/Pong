@@ -66,7 +66,7 @@ int main() {
             clock.restart();
             ball.reset();
             
-        } else if (clock.getElapsedTime().asSeconds() >= 3) {
+        } else if (clock.getElapsedTime().asSeconds() >= 2) {
             ball.drawto(window);
         }
         

@@ -7,7 +7,6 @@
 //
 
 #include "Paddle.hpp"
-#include "globalVar.h"
 
 Paddle::Paddle(bool left){
     height = 150;

@@ -9,6 +9,7 @@
 #ifndef Paddle_hpp
 #define Paddle_hpp
 #include <SFML/Graphics.hpp>
+#include "globalVar.h"
 #include <stdio.h>
 
 class Paddle {

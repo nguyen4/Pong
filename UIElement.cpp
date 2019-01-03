@@ -12,10 +12,9 @@
 UIElement::UIElement(){
     Left_Score = 0;
     Right_Score = 0;
-    if (!font.loadFromFile("../lib/sh-pinscher/SHPinscher-Regular.oft"))
+    if (!font.loadFromFile("arial.ttf"))
     {
         // error...
-        printf("could not find or use font 'sh-pinscher'.");
     }
     
     //initializing score number characteristics
